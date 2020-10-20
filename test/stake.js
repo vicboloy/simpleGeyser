@@ -4,7 +4,7 @@ const { expect } = require('chai');
 const ganache = require("ganache-core");
 web3.setProvider(ganache.provider());
 
-const Geyser = artifacts.require("Geyser");
+const Geyser = artifacts.require("GeyserApp");
 const SimpleToken = artifacts.require("SimpleToken");
 
 const AMPL_DECIMALS = 9;
@@ -23,12 +23,13 @@ contract('Geyser', (accounts) => {
 			user2 = accounts[1];
 			user3 = accounts[2];
 
-			simpleToken = await SimpleToken.new();
+			simpleToken = await SimpleToken.new("Simple Token", "ST");
 
 			const startBonus = 50;
 	    	const bonusPeriod = 86400;
-			dist = await Geyser.new(simpleToken.address, simpleToken.address, startBonus, bonusPeriod);
-			contractOwner = await dist.owner();
+			dist = await Geyser.new();
+			dist.initialize(simpleToken.address, simpleToken.address, user1);
+			// contractOwner = await dist.owner();
 		});
 
 		describe('stake', function () {
@@ -48,12 +49,12 @@ contract('Geyser', (accounts) => {
 			it('should update the total staked', async function () {
 				await dist.stake($ST(100));
 				expect(await dist.totalStaked.call()).to.be.bignumber.equal($ST(100));
-				expect(await dist.totalStakedFor.call(contractOwner)).to.be.bignumber.equal($ST(100));
+				expect(await dist.totalStakedFor.call(user1)).to.be.bignumber.equal($ST(100));
 			});
 			it('should log Staked', async function () {
 	        const r = await dist.stake($ST(100));
 	        expectEvent(r, 'Staked', {
-	          user: contractOwner,
+	          user: user1,
 	          amount: $ST(100),
 	          total: $ST(100)
 	        });
@@ -73,7 +74,7 @@ contract('Geyser', (accounts) => {
 			it('should update the total staked to 200', async function () {
 				expect(await dist.totalStaked.call()).to.be.bignumber.equal($ST(200));
 	        	expect(await dist.totalStakedFor.call(user2)).to.be.bignumber.equal($ST(50));
-	        	expect(await dist.totalStakedFor.call(contractOwner)).to.be.bignumber.equal($ST(150));
+	        	expect(await dist.totalStakedFor.call(user1)).to.be.bignumber.equal($ST(150));
 			});
 		});
 
