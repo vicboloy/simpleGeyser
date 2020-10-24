@@ -1,7 +1,7 @@
 pragma solidity ^0.6.2;
 
 import "@openzeppelin/contracts/access/AccessControl.sol";
-import "@openzeppelin/upgrades-core/contracts/Initializable.sol";
+import "@openzeppelin/contracts/proxy/Initializable.sol";
 import "@openzeppelin/contracts/GSN/Context.sol";
 
 

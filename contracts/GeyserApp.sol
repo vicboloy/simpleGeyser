@@ -1,13 +1,13 @@
 pragma solidity >=0.5.0 <=0.6.2;
 
-import "@openzeppelin/contracts/Math/SafeMath.sol";
+import "@openzeppelin/contracts/math/SafeMath.sol";
 import "@openzeppelin/contracts/GSN/Context.sol";
-import "@openzeppelin/upgrades-core/contracts/Initializable.sol";
+import "@openzeppelin/contracts/utils/Pausable.sol";
 
 import "./SimplePool.sol";
 import "./AccessRule.sol";
 
-contract GeyserApp is AccessRule {
+contract GeyserApp is AccessRule, Pausable {
 	using SafeMath for uint256;
 
 	event Staked(address indexed user, uint256 amount, uint256 total);
@@ -74,7 +74,7 @@ contract GeyserApp is AccessRule {
      *	@dev Transfers amount of token to be deposit by the user.
      *	@param _amount Number of deposit tokens to be stake by the user.
     **/
-    function stake(uint256 _amount) external {
+    function stake(uint256 _amount) external whenNotPaused {
         require(_amount > 0, 'Geyser: stake _amount is zero');
 
         updateTotals();
@@ -101,7 +101,7 @@ contract GeyserApp is AccessRule {
      *	their eligible amount of reward tokens.
      *	@param _amount - Number of deposit tokens to unstake / withdraw.
     **/
-    function unstake(uint256 _amount) external {
+    function unstake(uint256 _amount) external whenNotPaused {
     	updateTotals();
 
     	require(_amount > 0, 'GeyserApp: unstake amount is zero');
@@ -250,7 +250,7 @@ contract GeyserApp is AccessRule {
      *	@param _amount Number of reward token that is in the lock state and to be transfered from the caller
      *	@param _duration Length of time to linear unlock the tokens.
     **/
-    function lockRewardToken(uint256 _amount, uint256 _duration) external onlyMinter {
+    function lockRewardToken(uint256 _amount, uint256 _duration) external onlyMinter whenNotPaused {
     	updateTotals();
     	
     	RewardSchedule memory schedule;
@@ -270,7 +270,7 @@ contract GeyserApp is AccessRule {
      *	@dev Moves the tokens that is locked to unlocked pool according to the defined unlock duration.
      *	@return Number of newly unlock reward tokens.
     **/
-    function unlockRewardToken() public returns (uint256) {
+    function unlockRewardToken() public whenNotPaused returns (uint256) {
     	uint256 unlockedRewardTokens = 0;
     	uint256 lockRewardTokens = totalLocked();
     	uint256 currentRewardTokenToUnlock = 0;
@@ -306,6 +306,15 @@ contract GeyserApp is AccessRule {
         }
 
         return unlockedRewardTokens;
+    }
+
+
+    function pause() external onlyAdmin {
+    	_pause();
+    }
+
+    function unpause() external onlyAdmin {
+    	_unpause();
     }
 
 }

@@ -1,7 +1,7 @@
 pragma solidity >=0.5.0 <=0.6.2;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import "@openzeppelin/upgrades-core/contracts/Initializable.sol";
+import "@openzeppelin/contracts/proxy/Initializable.sol";
 
 import "./AccessRule.sol";
 
