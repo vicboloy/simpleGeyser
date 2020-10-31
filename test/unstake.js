@@ -69,9 +69,9 @@ contract('Geyser', (accounts) => {
 		describe('unstake', function (){
 			describe('when amount is 0', function () {
 				it('should fail', async function () {
-					await dist.stake(50, { from: user1 });
+					await dist.stake($ST(50), '0x', { from: user1 });
 					await expectRevert(
-			          dist.unstake(0, { from: user1 }),
+			          dist.unstake($ST(0), '0x', { from: user1 }),
 			          'GeyserApp: unstake amount is zero'
 			        );
 				});
@@ -84,7 +84,7 @@ contract('Geyser', (accounts) => {
 		        expect(await dist.totalLocked.call()).to.be.bignumber.equal($ST(100));
 		        let snapshot = await timehelper.takeSnapshot();
 				snapshotId = snapshot['result'];
-		        const stake = await dist.stake($ST(50), { from: user2 });
+		        const stake = await dist.stake($ST(50), '0x', { from: user2 });
 		        await timehelper.advanceTimeAndBlock(ONE_YEAR + 60);
 		        await dist.updateTotals.call();
 		    });
@@ -92,19 +92,19 @@ contract('Geyser', (accounts) => {
        			await timehelper.revertToSnapshot(snapshotId);
    			});
 		    it('should update the total staked and rewards', async function () {
-		        await dist.unstake($ST(50), { from: user2 });
+		        await dist.unstake($ST(50), '0x', { from: user2 });
 		        expect(await dist.totalStaked.call()).to.be.bignumber.equal($ST(0));
 				expect(await dist.totalStakedFor.call(user2)).to.be.bignumber.equal($ST(0));
 				expect(await dist.totalUnlocked.call()).to.be.bignumber.equal($ST(0));
       		});
       		it('should transfer back staked tokens + reward tokens', async function () {
       			const _b = await st.balanceOf.call(user2);
-		        await dist.unstake($ST(30), { from: user2 });
+		        await dist.unstake($ST(30), '0x', { from: user2 });
 		        const b = await st.balanceOf.call(user2);
 		        expect(b).to.be.bignumber.equal(_b.add($ST(30).add($ST(60))));
       		});
       		it('should log Unstaked', async function () {
-      			const r = await dist.unstake($ST(50), { from: user2 });
+      			const r = await dist.unstake($ST(50), '0x', { from: user2 });
 		        expectEvent(r, 'Unstaked', {
 		          user: user2,
 		          amount: $ST(50),
@@ -112,7 +112,7 @@ contract('Geyser', (accounts) => {
 		        });
       		});
       		it('should log RewardToken', async function () {
-      			const r = await dist.unstake($ST(30), { from: user2 });
+      			const r = await dist.unstake($ST(30), '0x', { from: user2 });
 		        expectEvent(r, 'TokensClaimed', {
 		          user: user2,
 		          amount: $ST(60)
@@ -126,7 +126,7 @@ contract('Geyser', (accounts) => {
 		        await dist.lockRewardToken($ST(1000), ONE_HOUR, { from : user1 });
 		        let snapshot = await timehelper.takeSnapshot();
 				snapshotId = snapshot['result'];
-		        await dist.stake($ST(500), { from: user2 });
+		        await dist.stake($ST(500), '0x', { from: user2 });
 		        await timehelper.advanceTimeAndBlock(12 * ONE_HOUR);
 		        await dist.updateTotals.call();
 		    });
@@ -135,13 +135,13 @@ contract('Geyser', (accounts) => {
    			});
 		    it('should update total stake and rewards', async function () {
 		    	expect(await dist.totalStaked.call()).to.be.bignumber.equal($ST(500));
-		    	await dist.unstake($ST(250), { from: user2 });
+		    	await dist.unstake($ST(250), '0x', { from: user2 });
 		    	expect(await dist.totalStaked.call()).to.be.bignumber.equal($ST(250));
        			expect(await dist.totalStakedFor.call(user2)).to.be.bignumber.equal($ST(250));
        			expect(await dist.totalUnlocked.call()).to.be.bignumber.equal($ST(500));
 		    });
 		    it('should log Unstaked', async function () {
-      			const r = await dist.unstake($ST(250), { from: user2 });
+      			const r = await dist.unstake($ST(250), '0x', { from: user2 });
 		        expectEvent(r, 'Unstaked', {
 		          user: user2,
 		          amount: $ST(250),
@@ -149,7 +149,7 @@ contract('Geyser', (accounts) => {
 		        });
       		});
       		it('should log RewardToken', async function () {
-      			const r = await dist.unstake($ST(250), { from: user2 });
+      			const r = await dist.unstake($ST(250), '0x', { from: user2 });
 		        expectEvent(r, 'TokensClaimed', {
 		          user: user2,
 		          amount: $ST(500)
@@ -163,7 +163,7 @@ contract('Geyser', (accounts) => {
 		        await dist.lockRewardToken($ST(1000), ONE_HOUR, { from : user1 });
 		        let snapshot = await timehelper.takeSnapshot();
 				snapshotId = snapshot['result'];
-		        await dist.stake($ST(500), { from: user3 });
+		        await dist.stake($ST(500), '0x', { from: user3 });
 		        await timehelper.advanceTimeAndBlock(12 * ONE_HOUR);
 		        await dist.updateTotals.call();
 		    });

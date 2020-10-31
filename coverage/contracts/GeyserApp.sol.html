@@ -1,0 +1,1073 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for contracts\GeyserApp.sol</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">all files</a> / <a href="index.html">contracts/</a> GeyserApp.sol
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">96.74% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>89/92</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">79.17% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>19/24</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">83.33% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>15/18</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">96.77% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>90/93</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">26×</span>
+<span class="cline-any cline-yes">26×</span>
+<span class="cline-any cline-yes">26×</span>
+<span class="cline-any cline-yes">26×</span>
+<span class="cline-any cline-yes">26×</span>
+<span class="cline-any cline-yes">26×</span>
+<span class="cline-any cline-yes">26×</span>
+<span class="cline-any cline-yes">26×</span>
+<span class="cline-any cline-yes">26×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">19×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17×</span>
+<span class="cline-any cline-yes">17×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17×</span>
+<span class="cline-any cline-yes">17×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">43×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">43×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">43×</span>
+<span class="cline-any cline-yes">43×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">43×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">33×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">89×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">139×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">54×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">43×</span>
+<span class="cline-any cline-yes">43×</span>
+<span class="cline-any cline-yes">43×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">43×</span>
+<span class="cline-any cline-yes">20×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">23×</span>
+<span class="cline-any cline-yes">23×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">23×</span>
+<span class="cline-any cline-yes">15×</span>
+<span class="cline-any cline-yes">15×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">23×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">23×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">43×</span>
+<span class="cline-any cline-yes">15×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">43×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">pragma solidity &gt;=0.5.0 &lt;=0.6.2;
+&nbsp;
+import "@openzeppelin/contracts/math/SafeMath.sol";
+import "@openzeppelin/contracts/GSN/Context.sol";
+import "@openzeppelin/contracts/utils/Pausable.sol";
+&nbsp;
+import "./SimplePool.sol";
+import "./AccessRule.sol";
+import "./IStaking.sol";
+&nbsp;
+contract GeyserApp is IStaking, AccessRule, Pausable {
+	using SafeMath for uint256;
+&nbsp;
+	event Staked(address indexed user, uint256 amount, uint256 total, bytes data);
+	event Unstaked(address indexed user, uint256 amount, uint256 total, bytes data);
+    event TokensClaimed(address indexed user, uint256 amount);
+    event TokensLocked(uint256 amount, uint256 durationSec, uint256 total);
+    event TokensUnlocked(uint256 amount, uint256 total);
+&nbsp;
+    SimplePool private stakedPool;
+	SimplePool private lockedPool;
+    SimplePool private unlockedPool;
+&nbsp;
+    uint256 private globalTotalStakedDuration;
+    uint256 private globalLastStakedTimeStamp;
+&nbsp;
+    struct UserStakes {
+    	uint256 staked;
+    	uint256 timeStamp;
+    }
+&nbsp;
+    struct TotalUserStakes {
+    	uint256 totalStaked;
+    	uint256 firstStakedTimestamp;
+    }
+&nbsp;
+    mapping(address =&gt; TotalUserStakes) private totalUserStakes;
+&nbsp;
+    mapping(address =&gt; UserStakes[]) private userStakes;
+&nbsp;
+    struct RewardSchedule {
+        uint256 initialLockedToken;
+        uint256 unlockedToken;
+        uint256 lastUnlockTimestamp;
+        uint256 endTimestamp;
+        uint256 duration;
+    }
+&nbsp;
+    RewardSchedule[] public rewardSchedule;
+&nbsp;
+    /**
+     *	@param _stakeToken The token users deposit as stake.
+     *	@param _rewardToken The token users receives as reward as they unstake.
+    **/
+    function initialize(IERC20 _stakeToken, IERC20 _rewardToken, address _rootAdmin) public initializer {
+        AccessRule.initialize(_rootAdmin);
+    	globalTotalStakedDuration = 0;
+    	globalLastStakedTimeStamp = now;
+        stakedPool = new SimplePool();
+        stakedPool.initialize(_stakeToken, address(this));
+        lockedPool = new SimplePool();
+        lockedPool.initialize(_rewardToken, address(this));
+        unlockedPool = new SimplePool();
+        unlockedPool.initialize(_rewardToken, address(this));
+    }
+&nbsp;
+    /**
+     * @return The token users deposit as stake.
+     */
+    function getStakingToken() public view returns (IERC20) {
+        return stakedPool.token();
+    }
+&nbsp;
+    /**
+     *  @dev Transfers amount of token to be deposit by the user.
+     *  @param _amount Number of deposit tokens to be stake by the user.
+    **/
+    function stake(uint256 _amount, bytes calldata _data) override external whenNotPaused {
+        _stake(_msgSender(), _amount);
+    }
+&nbsp;
+    /**
+     *  @dev Transfers amount of token to be deposit by the user.
+     *  @param _amount Number of deposit tokens to be stake by the user.
+    **/
+    function stakeFor(address _staker, uint256 _amount, bytes calldata _data) override external whenNotPaused {
+        _stake(_staker, _amount);
+    }
+&nbsp;
+    /**
+     *  @dev Transfers amount of token to be deposit by the user.
+     *  @param _amount Number of deposit tokens to be stake by the user.
+    **/
+    function _stake(address _staker, uint256 _amount) internal {
+        require(_amount &gt; 0, 'Geyser: stake _amount is zero');
+&nbsp;
+        updateTotals();
+&nbsp;
+        TotalUserStakes storage totals = totalUserStakes[_staker];
+        if(totals.totalStaked == 0 ) {
+            totals.firstStakedTimestamp = now;  
+        }
+        totals.totalStaked = totals.totalStaked.add(_amount);
+        
+&nbsp;
+        UserStakes memory newStake = UserStakes(_amount, now);
+        userStakes[_staker].push(newStake);
+&nbsp;
+        // totalStaked = totalStaked.add(_amount);
+&nbsp;
+        <span class="missing-if-branch" title="else path not taken" >E</span>require(stakedPool.token().transferFrom(_staker, address(stakedPool), _amount), 
+            'Geyser: transfer into staking pool failed');
+&nbsp;
+        emit Staked(_staker, _amount, totalStakedFor(_staker), "");
+    }
+&nbsp;
+    /** @dev Unstakes a certain amount of previously deposited tokens by the user. The user also receives
+     *	their eligible amount of reward tokens.
+     *	@param _amount - Number of deposit tokens to unstake / withdraw.
+    **/
+    function unstake(uint256 _amount, bytes calldata data) override external whenNotPaused {
+    	updateTotals();
+&nbsp;
+    	require(_amount &gt; 0, 'GeyserApp: unstake amount is zero');
+&nbsp;
+    	TotalUserStakes storage totals = totalUserStakes[_msgSender()];
+        UserStakes[] storage stakes = userStakes[_msgSender()];
+&nbsp;
+        uint256 stakesToBurn = _amount;
+        uint256 rewardAmount = 0;
+        uint256 totalStakedDurationToBurn = 0;
+        uint256 stakesCount = stakes.length;
+        while (stakesToBurn &gt; 0) {
+        	UserStakes storage lastStake = stakes[stakesCount - 1];
+        	uint256 stakeDuration = now.sub(lastStake.timeStamp);
+        	uint256 stakeDurationToBurn = 0;
+        	if(lastStake.staked &lt;= stakesToBurn) {
+        		stakeDurationToBurn = lastStake.staked.mul(stakeDuration);
+        		rewardAmount = computeNewReward(rewardAmount, stakeDurationToBurn);
+        		totalStakedDurationToBurn = totalStakedDurationToBurn.add(stakeDurationToBurn);
+        		stakesToBurn = stakesToBurn.sub(lastStake.staked);
+        		stakesCount--;
+        	} else {
+        		stakeDurationToBurn = stakesToBurn.mul(stakeDuration);
+        		rewardAmount = computeNewReward(rewardAmount, stakeDurationToBurn);
+        		totalStakedDurationToBurn = totalStakedDurationToBurn.add(stakeDurationToBurn);
+        		lastStake.staked = lastStake.staked.sub(stakesToBurn);
+        		stakesToBurn = 0;
+        	}
+        }
+&nbsp;
+        totals.totalStaked = totals.totalStaked.sub(_amount);
+&nbsp;
+        globalTotalStakedDuration = globalTotalStakedDuration.sub(totalStakedDurationToBurn);
+&nbsp;
+        // interactions
+        <span class="missing-if-branch" title="else path not taken" >E</span>require(stakedPool.transfer(_msgSender(), _amount),
+            'GeyserApp: transfer out of staking pool failed');
+        <span class="missing-if-branch" title="else path not taken" >E</span>require(unlockedPool.transfer(_msgSender(), rewardAmount),
+            'GeyserApp: transfer out of unlocked pool failed');
+&nbsp;
+        emit Unstaked(_msgSender(), _amount, totalStakedFor(_msgSender()), "");
+        emit TokensClaimed(_msgSender(), rewardAmount);
+&nbsp;
+    }
+&nbsp;
+    /**
+     * @dev Compute the current reward token based on the stake duration multiply by the total rewards
+     *		and divided  by the global staked durationSecn.
+     * @param _currentRewardTokens The current number of distribution tokens already alotted for this
+     *                            unstake op. Any bonuses are already applied.
+     * @param _stakingShareSeconds The stakingShare-seconds that are being burned for new
+     *                            distribution tokens.
+     * @return Updated amount of distribution tokens to award.
+     */
+    function computeNewReward(uint256 _currentRewardTokens,
+                                uint256 _stakingShareSeconds) private view returns (uint256) {
+&nbsp;
+        uint256 newRewardTokens =
+            totalUnlocked()
+            .mul(_stakingShareSeconds)
+            .div(globalTotalStakedDuration);
+&nbsp;
+&nbsp;
+        return _currentRewardTokens.add(newRewardTokens);
+    }
+&nbsp;
+    /**
+     *	@dev A function that is called globally to update the total and global timestamp as state of the system
+     *		 and current total rewards of the user.
+    **/
+    function updateTotals() public returns (uint256) {
+    	unlockRewardToken();
+&nbsp;
+    	uint256 currentStakeDuration = 
+    		now
+    		.sub(globalLastStakedTimeStamp)
+    		.mul(totalStaked());
+&nbsp;
+    	globalTotalStakedDuration = globalTotalStakedDuration.add(currentStakeDuration);
+    	globalLastStakedTimeStamp = now;
+&nbsp;
+    	// TotalUserStakes storage totals = totalUserStakes[_msgSender()];
+    	// uint256 totalUserStakedDuration = 
+    	// 	now
+    	// 	.sub(totals.firstStakedTimestamp)
+    	// 	.mul(totals.totalStaked);
+&nbsp;
+    	// uint256 totalUserRewards = (globalTotalStakedDuration &gt; 0)
+    	// 	? totalUnlocked().mul(totalUserStakedDuration).div(globalTotalStakedDuration)
+    	// 	: 0;
+&nbsp;
+    	return totalUnlocked();
+&nbsp;
+&nbsp;
+    }
+&nbsp;
+    /**
+     * @param _addr The user to look up staking information for.
+     * @return The number of staking tokens deposited for addr.
+     */
+    function totalStakedFor(address _addr) override public view returns (uint256) {
+        return totalStaked() &gt; 0 ?
+           totalUserStakes[_addr].totalStaked : 0;
+    }
+&nbsp;
+    /**
+     * @return The total number of deposit tokens staked globally, by all users.
+     */
+    function totalStaked() override public view returns (uint256) {
+        return stakedPool.balance();
+    }
+&nbsp;
+    /**
+     * @dev Note that this application has a staking token as well as a distribution token, which
+     * may be different. This function is required by EIP-900.
+     * @return The deposit token used for staking.
+     */
+    function token() override external view returns (address) {
+        return address(getStakingToken());
+    }
+&nbsp;
+    /**
+     * @return Total number of locked distribution tokens.
+     */
+    function totalLocked() public view returns (uint256) {
+        return lockedPool.balance();
+    }
+&nbsp;
+    /**
+     * @return Total number of unlocked distribution tokens.
+     */
+    function totalUnlocked() public view returns (uint256) {
+        return unlockedPool.balance();
+    }
+&nbsp;
+    /**
+     * @return Number of unlock schedules.
+     */
+<span class="fstat-no" title="function not covered" >    function unlockScheduleCount() public view returns (uint256) {</span>
+<span class="cstat-no" title="statement not covered" >        return rewardSchedule.length;</span>
+    }
+&nbsp;
+    /**
+     *	@dev This function allows the user that has admin role to add more locked tokens
+     * 		 and duration that will begin unlocking until the duration.
+     *	@param _amount Number of reward token that is in the lock state and to be transfered from the caller
+     *	@param _duration Length of time to linear unlock the tokens.
+    **/
+    function lockRewardToken(uint256 _amount, uint256 _duration) external onlyMinter whenNotPaused {
+    	updateTotals();
+    	
+    	RewardSchedule memory schedule;
+    	schedule.initialLockedToken = _amount;
+    	schedule.lastUnlockTimestamp = now;
+    	schedule.endTimestamp = now.add(_duration);
+    	schedule.duration = _duration;
+    	rewardSchedule.push(schedule);
+&nbsp;
+    	<span class="missing-if-branch" title="else path not taken" >E</span>require(lockedPool.token().transferFrom(_msgSender(), address(lockedPool), _amount),
+            'GeyserApp: transfer into locked pool failed');
+        emit TokensLocked(_amount, _duration, totalLocked());
+&nbsp;
+    }
+&nbsp;
+    /**
+     *	@dev Moves the tokens that is locked to unlocked pool according to the defined unlock duration.
+     *	@return Number of newly unlock reward tokens.
+    **/
+    function unlockRewardToken() public whenNotPaused returns (uint256) {
+    	uint256 unlockedRewardTokens = 0;
+    	uint256 lockRewardTokens = totalLocked();
+    	uint256 currentRewardTokenToUnlock = 0;
+&nbsp;
+    	if(totalLocked() == 0) {
+    		unlockedRewardTokens = lockRewardTokens;
+    	} else {
+    		for(uint256 s = 0; s &lt; rewardSchedule.length; s++) {
+	    		RewardSchedule storage schedule = rewardSchedule[s];
+&nbsp;
+	    		
+	    		if(now &gt;= schedule.endTimestamp) {
+	    			currentRewardTokenToUnlock = schedule.initialLockedToken.sub(schedule.unlockedToken);
+	    			schedule.lastUnlockTimestamp = schedule.endTimestamp;
+	    		} else {
+	    			currentRewardTokenToUnlock = now.sub(schedule.lastUnlockTimestamp)
+	    			.mul(schedule.initialLockedToken)
+	    			.div(schedule.duration);
+	    			schedule.lastUnlockTimestamp = now;
+	    		}
+&nbsp;
+	    		schedule.unlockedToken = schedule.unlockedToken.add(currentRewardTokenToUnlock);
+    		}
+&nbsp;
+    		unlockedRewardTokens = currentRewardTokenToUnlock.mul(lockRewardTokens).div(totalLocked());
+    	}
+    	
+&nbsp;
+    	if (unlockedRewardTokens &gt; 0) {
+            <span class="missing-if-branch" title="else path not taken" >E</span>require(lockedPool.transfer(address(unlockedPool), unlockedRewardTokens),
+                'TokenGeyser: transfer out of locked pool failed');
+            emit TokensUnlocked(unlockedRewardTokens, totalLocked());
+        }
+&nbsp;
+        return unlockedRewardTokens;
+    }
+&nbsp;
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function pause() external onlyAdmin {</span>
+<span class="cstat-no" title="statement not covered" >    	_pause()</span>;
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function unpause() external onlyAdmin {</span>
+<span class="cstat-no" title="statement not covered" >    	_unpause()</span>;
+    }
+&nbsp;
+}</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sat Oct 31 2020 16:14:15 GMT+0800 (China Standard Time)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>

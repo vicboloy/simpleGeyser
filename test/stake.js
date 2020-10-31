@@ -36,7 +36,7 @@ contract('Geyser', (accounts) => {
 			describe('when the amount is 0', function () {
 				it('should fail', async function () {
 					await simpleToken.approve(dist.address, $ST(1000))
-					await expectRevert.unspecified(dist.stake($ST(0)));
+					await expectRevert.unspecified(dist.stake($ST(0), '0x'));
 				});
 			});
 		});
@@ -47,12 +47,12 @@ contract('Geyser', (accounts) => {
 				await simpleToken.approve(dist.address, $ST(100));
 			});
 			it('should update the total staked', async function () {
-				await dist.stake($ST(100));
+				await dist.stake($ST(100), '0x');
 				expect(await dist.totalStaked.call()).to.be.bignumber.equal($ST(100));
 				expect(await dist.totalStakedFor.call(user1)).to.be.bignumber.equal($ST(100));
 			});
 			it('should log Staked', async function () {
-	        const r = await dist.stake($ST(100));
+	        const r = await dist.stakeFor(user1, $ST(100), '0x');
 	        expectEvent(r, 'Staked', {
 	          user: user1,
 	          amount: $ST(100),
@@ -67,9 +67,9 @@ contract('Geyser', (accounts) => {
 				await simpleToken.transfer(user2, $ST(50));
 				expect(await simpleToken.balanceOf(user2)).to.be.bignumber.equal($ST(50));
 				await simpleToken.approve(dist.address, $ST(50), { from: user2 });
-	        	await dist.stake($ST(50), { from: user2 });
+	        	await dist.stake($ST(50), '0x', { from: user2 });
 	        	await simpleToken.approve(dist.address, $ST(150));
-	        	await dist.stake($ST(150));
+	        	await dist.stake($ST(150), '0x');
 			});
 			it('should update the total staked to 200', async function () {
 				expect(await dist.totalStaked.call()).to.be.bignumber.equal($ST(200));
@@ -84,12 +84,12 @@ contract('Geyser', (accounts) => {
 				await simpleToken.transfer(user3, $ST(100));
 				expect(await simpleToken.balanceOf(user3)).to.be.bignumber.equal($ST(100));
 				await simpleToken.approve(dist.address, $ST(100), { from: user3 });
-				await dist.stake($ST(50), { from: user3 });
+				await dist.stake($ST(50), '0x', { from: user3 });
 			});
 			it('balance is equal to 0 and totalStakedFor = 100', async function() {
 				expect(await simpleToken.balanceOf.call(user3)).to.be.bignumber.equal($ST(50));
 				expect(await dist.totalStakedFor.call(user3)).to.be.bignumber.equal($ST(50));
-				await dist.stake($ST(50), { from: user3 });
+				await dist.stake($ST(50), '0x', { from: user3 });
 				expect(await simpleToken.balanceOf.call(user3)).to.be.bignumber.equal($ST(0));
 				expect(await dist.totalStakedFor.call(user3)).to.be.bignumber.equal($ST(100));
 			});
@@ -103,9 +103,9 @@ contract('Geyser', (accounts) => {
 				expect(await simpleToken.balanceOf(user2)).to.be.bignumber.equal($ST(100));
 				expect(await simpleToken.balanceOf(user3)).to.be.bignumber.equal($ST(100));
 				await simpleToken.approve(dist.address, $ST(100), { from: user2 });
-				await dist.stake($ST(50), { from: user2 });
+				await dist.stake($ST(50), '0x', { from: user2 });
 				await simpleToken.approve(dist.address, $ST(100), { from: user3 });
-				await dist.stake($ST(100), { from: user3 });
+				await dist.stake($ST(100), '0x', { from: user3 });
 			});
 			it('should update totalStaked to 100', async function () {
 				expect(await simpleToken.balanceOf.call(user2)).to.be.bignumber.equal($ST(50));

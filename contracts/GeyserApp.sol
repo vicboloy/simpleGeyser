@@ -6,12 +6,13 @@ import "@openzeppelin/contracts/utils/Pausable.sol";
 
 import "./SimplePool.sol";
 import "./AccessRule.sol";
+import "./IStaking.sol";
 
-contract GeyserApp is AccessRule, Pausable {
+contract GeyserApp is IStaking, AccessRule, Pausable {
 	using SafeMath for uint256;
 
-	event Staked(address indexed user, uint256 amount, uint256 total);
-	event Unstaked(address indexed user, uint256 amount, uint256 total);
+	event Staked(address indexed user, uint256 amount, uint256 total, bytes data);
+	event Unstaked(address indexed user, uint256 amount, uint256 total, bytes data);
     event TokensClaimed(address indexed user, uint256 amount);
     event TokensLocked(uint256 amount, uint256 durationSec, uint256 total);
     event TokensUnlocked(uint256 amount, uint256 total);
@@ -71,37 +72,53 @@ contract GeyserApp is AccessRule, Pausable {
     }
 
     /**
-     *	@dev Transfers amount of token to be deposit by the user.
-     *	@param _amount Number of deposit tokens to be stake by the user.
+     *  @dev Transfers amount of token to be deposit by the user.
+     *  @param _amount Number of deposit tokens to be stake by the user.
     **/
-    function stake(uint256 _amount) external whenNotPaused {
+    function stake(uint256 _amount, bytes calldata _data) override external whenNotPaused {
+        _stake(_msgSender(), _amount);
+    }
+
+    /**
+     *  @dev Transfers amount of token to be deposit by the user.
+     *  @param _amount Number of deposit tokens to be stake by the user.
+    **/
+    function stakeFor(address _staker, uint256 _amount, bytes calldata _data) override external whenNotPaused {
+        _stake(_staker, _amount);
+    }
+
+    /**
+     *  @dev Transfers amount of token to be deposit by the user.
+     *  @param _amount Number of deposit tokens to be stake by the user.
+    **/
+    function _stake(address _staker, uint256 _amount) internal {
         require(_amount > 0, 'Geyser: stake _amount is zero');
 
         updateTotals();
 
-        TotalUserStakes storage totals = totalUserStakes[_msgSender()];
+        TotalUserStakes storage totals = totalUserStakes[_staker];
         if(totals.totalStaked == 0 ) {
-        	totals.firstStakedTimestamp = now;	
+            totals.firstStakedTimestamp = now;  
         }
         totals.totalStaked = totals.totalStaked.add(_amount);
         
 
         UserStakes memory newStake = UserStakes(_amount, now);
-        userStakes[_msgSender()].push(newStake);
+        userStakes[_staker].push(newStake);
 
         // totalStaked = totalStaked.add(_amount);
 
-        require(stakedPool.token().transferFrom(_msgSender(), address(stakedPool), _amount), 
-        	'Geyser: transfer into staking pool failed');
+        require(stakedPool.token().transferFrom(_staker, address(stakedPool), _amount), 
+            'Geyser: transfer into staking pool failed');
 
-        emit Staked(_msgSender(), _amount, totalStakedFor(_msgSender()));
+        emit Staked(_staker, _amount, totalStakedFor(_staker), "");
     }
 
     /** @dev Unstakes a certain amount of previously deposited tokens by the user. The user also receives
      *	their eligible amount of reward tokens.
      *	@param _amount - Number of deposit tokens to unstake / withdraw.
     **/
-    function unstake(uint256 _amount) external whenNotPaused {
+    function unstake(uint256 _amount, bytes calldata data) override external whenNotPaused {
     	updateTotals();
 
     	require(_amount > 0, 'GeyserApp: unstake amount is zero');
@@ -142,7 +159,7 @@ contract GeyserApp is AccessRule, Pausable {
         require(unlockedPool.transfer(_msgSender(), rewardAmount),
             'GeyserApp: transfer out of unlocked pool failed');
 
-        emit Unstaked(_msgSender(), _amount, totalStakedFor(_msgSender()));
+        emit Unstaked(_msgSender(), _amount, totalStakedFor(_msgSender()), "");
         emit TokensClaimed(_msgSender(), rewardAmount);
 
     }
@@ -202,7 +219,7 @@ contract GeyserApp is AccessRule, Pausable {
      * @param _addr The user to look up staking information for.
      * @return The number of staking tokens deposited for addr.
      */
-    function totalStakedFor(address _addr) public view returns (uint256) {
+    function totalStakedFor(address _addr) override public view returns (uint256) {
         return totalStaked() > 0 ?
            totalUserStakes[_addr].totalStaked : 0;
     }
@@ -210,7 +227,7 @@ contract GeyserApp is AccessRule, Pausable {
     /**
      * @return The total number of deposit tokens staked globally, by all users.
      */
-    function totalStaked() public view returns (uint256) {
+    function totalStaked() override public view returns (uint256) {
         return stakedPool.balance();
     }
 
@@ -219,7 +236,7 @@ contract GeyserApp is AccessRule, Pausable {
      * may be different. This function is required by EIP-900.
      * @return The deposit token used for staking.
      */
-    function token() external view returns (address) {
+    function token() override external view returns (address) {
         return address(getStakingToken());
     }
 

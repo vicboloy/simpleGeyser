@@ -45,10 +45,12 @@ contract('Geyser', (accounts) => {
 		        sender: user1
 		    });
 		});	
-		it('should add new minter and lock tokens', async function () {
+		it('should remove new minter', async function () {
 			const res = await dist.setMinter(user4);
-			const rewardSched = await dist.lockRewardToken($ST(100), ONE_YEAR, {from: user4});
+			// const rewardSched = await dist.lockRewardToken($ST(100), ONE_YEAR, {from: user4});
 			expect(await dist.hasMinterRole(user4)).to.equal(true);
+			await dist.removeMinter(user4);
+			expect(await dist.hasMinterRole(user4)).to.equal(false);
 		});	
 	});
 

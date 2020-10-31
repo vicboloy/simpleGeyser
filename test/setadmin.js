@@ -39,16 +39,21 @@ contract('Geyser', (accounts) => {
 		    await simpleToken.transfer(user4, $ST(10000));
 		});
 		it('should add minter role', async function () {
-			const res = await dist.setMinter(user4);
+			const res = await dist.setAdmin(user2);
 			expectEvent(res, 'RoleGranted', {
-		        account: user4,
+		        account: user2,
 		        sender: user1
 		    });
 		});	
-		it('should add new minter and lock tokens', async function () {
-			const res = await dist.setMinter(user4);
-			const rewardSched = await dist.lockRewardToken($ST(100), ONE_YEAR, {from: user4});
-			expect(await dist.hasMinterRole(user4)).to.equal(true);
+		it('should add new admin and lock tokens', async function () {
+			const res = await dist.setAdmin(user3);
+			expect(await dist.hasAdminRole(user3)).to.equal(true);
+		});	
+		it('should renounce added admin', async function () {
+			const res = await dist.setAdmin(user3);
+			expect(await dist.hasAdminRole(user3)).to.equal(true);
+			await dist.renounceAdmin({from:user3});
+			expect(await dist.hasAdminRole(user3)).to.equal(false);
 		});	
 	});
 

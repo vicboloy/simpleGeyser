@@ -1,13 +1,19 @@
 const path = require("path");
 
 module.exports = {
+
+  plugins: ["solidity-coverage"],
   networks: {
     development: {
-      host: "localhost",
-      port: 7545,
-      network_id: "5777"
+      host: "127.0.0.1", // ganache defaults
+      port: 7545, // ganache defaults
+      network_id: '*'
+    },
+    soliditycoverage: {
+      port: 8545,
+      host: "127.0.0.1",
+      network_id: "*",
     }
-    // live: { ... }
   },
   compilers: {
     solc: {
